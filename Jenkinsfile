@@ -2,6 +2,9 @@ pipeline {
     agent any
     stages {
         stage('Test') {
+            when {
+                branch 'dev'
+            }
             agent {
                 docker {
             image 'python:3.12.0-slim-bullseye'
@@ -19,6 +22,9 @@ pipeline {
         }
 
         stage("Docker Build") {
+            when {
+                branch 'main'
+            }
             environment {
                 DOCKER_IMAGE = "vdthinh/flask-blog"
                 DOCKER_TAG = "${GIT_BRANCH.tokenize('/').last()}-${GIT_COMMIT.substring(0, 7)}"
