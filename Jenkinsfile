@@ -8,15 +8,11 @@ pipeline {
                     // Check out the code
                     checkout scm
                     echo "Current Branch: ${env.BRANCH_NAME}"
-                    // Run 'git rev-parse --abbrev-ref HEAD' to get the current branch
-                    def currentBranch = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-                    echo "Current Git Branch: ${currentBranch}"
                 }
             }
         }
         
         stage('Test') {
-            
             when {
                 expression {
                     // Run tests only on the 'dev' branch
@@ -30,14 +26,6 @@ pipeline {
           }
             }
             steps {
-
-                            script{
-                echo "Current Branch: ${env.BRANCH_NAME}"
-                // Run 'git rev-parse --abbrev-ref HEAD' to get the current branch
-                def currentBranch = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-                echo "Current Git Branch: ${currentBranch}"
-            }
-                
                 // Install dependencies
                 sh 'pip install -U -r requirements.txt'
                 // Install the project
