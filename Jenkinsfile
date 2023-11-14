@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    
     stages {
         stage('Checkout') {
             steps {
@@ -10,9 +10,7 @@ pipeline {
                 }
             }
         }
-    }
-    
-    stages {
+        
         stage('Test') {
             when {
                 expression {
