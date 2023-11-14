@@ -1,9 +1,23 @@
 pipeline {
     agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Check out the code
+                    checkout scm
+                }
+            }
+        }
+    
     stages {
         stage('Test') {
             when {
-                branch 'dev'
+                expression {
+                    // Run tests only on the 'dev' branch
+                    return env.BRANCH_NAME == 'dev'
+                }
             }
             agent {
                 docker {
@@ -23,7 +37,10 @@ pipeline {
 
         stage("Docker Build") {
             when {
-                branch 'main'
+                expression {
+                    // Run tests only on the 'dev' branch
+                    return env.BRANCH_NAME == 'dev'
+                }
             }
             environment {
                 DOCKER_IMAGE = "vdthinh/flask-blog"
