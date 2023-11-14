@@ -16,12 +16,6 @@ pipeline {
         }
         
         stage('Test') {
-            script{
-                echo "Current Branch: ${env.BRANCH_NAME}"
-                // Run 'git rev-parse --abbrev-ref HEAD' to get the current branch
-                def currentBranch = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-                echo "Current Git Branch: ${currentBranch}"
-            }
             
             when {
                 expression {
@@ -36,6 +30,14 @@ pipeline {
           }
             }
             steps {
+
+                            script{
+                echo "Current Branch: ${env.BRANCH_NAME}"
+                // Run 'git rev-parse --abbrev-ref HEAD' to get the current branch
+                def currentBranch = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                echo "Current Git Branch: ${currentBranch}"
+            }
+                
                 // Install dependencies
                 sh 'pip install -U -r requirements.txt'
                 // Install the project
