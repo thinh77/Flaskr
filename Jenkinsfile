@@ -8,11 +8,21 @@ pipeline {
                     // Check out the code
                     checkout scm
                     echo "Current Branch: ${env.BRANCH_NAME}"
+                    // Run 'git rev-parse --abbrev-ref HEAD' to get the current branch
+                    def currentBranch = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    echo "Current Git Branch: ${currentBranch}"
                 }
             }
         }
         
         stage('Test') {
+            script{
+                echo "Current Branch: ${env.BRANCH_NAME}"
+                // Run 'git rev-parse --abbrev-ref HEAD' to get the current branch
+                def currentBranch = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                echo "Current Git Branch: ${currentBranch}"
+            }
+            
             when {
                 expression {
                     // Run tests only on the 'dev' branch
