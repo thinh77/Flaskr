@@ -7,6 +7,7 @@ pipeline {
                 script {
                     // Check out the code
                     checkout scm
+                    echo "Current Branch: ${env.BRANCH_NAME}"
                 }
             }
         }
@@ -38,7 +39,7 @@ pipeline {
             when {
                 expression {
                     // Run tests only on the 'dev' branch
-                    return env.BRANCH_NAME == 'dev'
+                    return env.BRANCH_NAME == 'main'
                 }
             }
             environment {
