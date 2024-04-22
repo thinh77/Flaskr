@@ -12,7 +12,7 @@ pipeline {
             agent {
                 docker {
             image 'python:3.12.0-slim-bullseye'
-            args '-u 0:0 -v /tmp:/root/.cache'
+            // args '-u 0:0 -v /tmp:/root/.cache'
           }
             }
             steps {
