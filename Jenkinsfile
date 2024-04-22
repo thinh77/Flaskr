@@ -1,24 +1,14 @@
 pipeline {
-    agent any
+    agent none
     
     stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    // Check out the code
-                    checkout scm
-                    echo "Current Branch: ${env.BRANCH_NAME}"
-                }
-            }
-        }
-        
         stage('Test') {
-            when {
-                expression {
-                    // Run tests only on the 'dev' branch
-                    return env.BRANCH_NAME == 'dev'
-                }
-            }
+            // when {
+            //     expression {
+            //         // Run tests only on the 'dev' branch
+            //         return env.BRANCH_NAME == 'dev'
+            //     }
+            // }
             agent {
                 docker {
             image 'python:3.12.0-slim-bullseye'
@@ -35,34 +25,34 @@ pipeline {
             }
         }
 
-        stage("Docker Build") {
-            when {
-                expression {
-                    // Run tests only on the 'dev' branch
-                    return env.BRANCH_NAME == 'main'
-                }
-            }
-            environment {
-                DOCKER_IMAGE = "vdthinh/flask-blog"
-                DOCKER_TAG = "${GIT_BRANCH.tokenize('/').last()}-${GIT_COMMIT.substring(0, 7)}"
-            }
-            steps {
-                // Build image
-                sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} . "
-                sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
-                // Display information about the built images
-                sh "docker image ls | grep ${DOCKER_IMAGE}"
-                // Push image into docker hub
-                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
-                    sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                    sh "docker push ${DOCKER_IMAGE}:latest"
-                }
-                //clean to save disk
-                sh "docker image rm ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                sh "docker image rm ${DOCKER_IMAGE}:latest"
-            }
-        }
+        // stage("Docker Build") {
+        //     when {
+        //         expression {
+        //             // Run tests only on the 'dev' branch
+        //             return env.BRANCH_NAME == 'main'
+        //         }
+        //     }
+        //     environment {
+        //         DOCKER_IMAGE = "vdthinh/flask-blog"
+        //         DOCKER_TAG = "${GIT_BRANCH.tokenize('/').last()}-${GIT_COMMIT.substring(0, 7)}"
+        //     }
+        //     steps {
+        //         // Build image
+        //         sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} . "
+        //         sh "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
+        //         // Display information about the built images
+        //         sh "docker image ls | grep ${DOCKER_IMAGE}"
+        //         // Push image into docker hub
+        //         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        //             sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
+        //             sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+        //             sh "docker push ${DOCKER_IMAGE}:latest"
+        //         }
+        //         //clean to save disk
+        //         sh "docker image rm ${DOCKER_IMAGE}:${DOCKER_TAG}"
+        //         sh "docker image rm ${DOCKER_IMAGE}:latest"
+        //     }
+        // }
     }
 
     post {
