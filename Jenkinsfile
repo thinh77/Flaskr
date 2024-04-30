@@ -19,11 +19,10 @@ pipeline {
                 // Install dependencies
                 // sh 'pip install -U -r requirements.txt'
                 // // Install the project
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    sh 'pip3 install pytest'
-                    // Run test
-                    sh 'pytest'
-                }
+                sh 'sudo /home/.env/bin/pip3 install pytest'
+                // Run test
+                sh 'pytest'
+            
                 
             }
         }
