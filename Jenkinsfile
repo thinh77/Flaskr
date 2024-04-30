@@ -22,6 +22,7 @@ pipeline {
                 // sh 'source /home/.venv/bin/activate'
                 sh '/home/.venv/bin/pip3 install pytest'
                 sh """. /home/.venv/bin/activate
+                        python3 -m pip install -e .
                         pytest
                 """
             
