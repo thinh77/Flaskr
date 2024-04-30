@@ -1,2 +1,2 @@
 # Flaskr
-A simple blogging application built using Flask
+A simple blogging application built using Flask.
