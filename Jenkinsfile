@@ -17,9 +17,9 @@ pipeline {
             }
             steps {
                 // Install dependencies
-                sh 'pip install -U -r requirements.txt'
-                // Install the project
-                sh 'pip install -e .'
+                // sh 'pip install -U -r requirements.txt'
+                // // Install the project
+                // sh 'pip install -e .'
                 // Run test
                 sh 'pytest'
             }
