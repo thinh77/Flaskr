@@ -19,8 +19,8 @@ pipeline {
                 // Install dependencies
                 // sh 'pip install -U -r requirements.txt'
                 // // Install the project
-                sh 'source /home/.venv/bin/activate'
-                sh '/home/.env/bin/pip3 install pytest'
+                // sh 'source /home/.venv/bin/activate'
+                sh '/home/.venv/bin/pip3 install pytest'
                 // Run test
                 sh 'pytest'
             
