@@ -21,7 +21,7 @@ pipeline {
                 // // Install the project
                 // sh 'source /home/.venv/bin/activate'
                 sh '/home/.venv/bin/pip3 install pytest'
-                sh '/home/.venv/bin/activate'
+                sh '. .venv/bin/activate'
                 // Run test
                 sh 'pytest'
             
