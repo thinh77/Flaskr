@@ -9,12 +9,12 @@ pipeline {
             //         return env.BRANCH_NAME == 'dev'
             //     }
             // }
-            agent {
-                docker {
-            image 'python:3.12.0-slim-bullseye'
-            // args '-u 0:0 -v /tmp:/root/.cache'
-          }
-            }
+          //   agent {
+          //       docker {
+          //   image 'python:3.12.0-slim-bullseye'
+          //   // args '-u 0:0 -v /tmp:/root/.cache'
+          // }
+          //   }
             steps {
                 // Install dependencies
                 // sh 'pip install -U -r requirements.txt'
