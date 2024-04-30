@@ -19,7 +19,7 @@ pipeline {
                 // Install dependencies
                 // sh 'pip install -U -r requirements.txt'
                 // // Install the project
-                sh 'sudo /home/.env/bin/pip3 install pytest'
+                sh '/home/.env/bin/pip3 install pytest'
                 // Run test
                 sh 'pytest'
             
