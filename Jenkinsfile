@@ -48,11 +48,11 @@ pipeline {
                 // Display information about the built images
                 sh "docker image ls | grep ${DOCKER_IMAGE}"
                 // Push image into docker hub
-                // withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                //     sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
-                //     sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                //     sh "docker push ${DOCKER_IMAGE}:latest"
-                // }
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
+                    sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    sh "docker push ${DOCKER_IMAGE}:latest"
+                }
                 //clean to save disk
                 sh "docker image rm ${DOCKER_IMAGE}:${DOCKER_TAG}"
                 sh "docker image rm ${DOCKER_IMAGE}:latest"
