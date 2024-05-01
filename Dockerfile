@@ -14,6 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Run app.py when the container launches
-# flask --app flaskr init-db
-CMD ["flask", "--app", "src", "init-db"]
-CMD ["python3","-m","flask", "--app", "app/src", "run","--host=0.0.0.0"]
+CMD ["/start.sh"]
